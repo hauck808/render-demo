@@ -34,14 +34,22 @@ const myApp = {
 			this.creating = true;
 		},
 		async addImmo() {
-			await axios.post('/immos', {
-				image: '/images/missing.png',
-				title: this.newImmo.title,
-				price: Number(this.newImmo.price),
-				postCode: this.newImmo.postCode,
-				city: this.newImmo.city,
-				country: this.newImmo.country,
-			});
+			if (
+				this.newImmo.title &&
+				Number(this.newImmo.price) !== NaN &&
+				this.newImmo.postCode &&
+				this.newImmo.city &&
+				this.newImmo.country
+			) {
+				await axios.post('/immos', {
+					image: '/images/missing.png',
+					title: this.newImmo.title,
+					price: Number(this.newImmo.price),
+					postCode: this.newImmo.postCode,
+					city: this.newImmo.city,
+					country: this.newImmo.country,
+				});
+			}
 			this.creating = false;
 			this.getImmoData();
 		},
